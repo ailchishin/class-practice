@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag practice:$(date +%s)
+      run: docker build . --file Dockerfile --tag ${{ secrets.dockerhub_username }} practice:$(date +%s)
 
     - name: log in to docker hub
       uses: docker/login-action@v1
@@ -25,5 +25,5 @@ jobs:
         password: ${{ secrets.dockerhub_password }}
 
     - name: push docker image
-      run: docker push ${{ secrets.dockerhub_username }}/practice:$(date +%s)
+      run: docker push ${{ secrets.dockerhub_username }}/practice:latest
 
