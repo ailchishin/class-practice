@@ -18,7 +18,7 @@ jobs:
       run: docker build . --file Dockerfile --tag my-apache:$(date +%s)
 
     - name: log in to docker hub
-    - uses: docker/login-action@v1
+      uses: docker/login-action@v1
       with:
         username: ${{ secrets.dockerhub_username }}
         password: ${{ secrets.dockerhub_password }}
