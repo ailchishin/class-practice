@@ -25,5 +25,5 @@ jobs:
         password: ${{ secrets.dockerhub_password }}
 
     - name: push docker image
-      run: docker push ${{ secrets.dockerhub_username }}/practice:latest
+      run: docker push ${{ secrets.dockerhub_username }}/practice:tagname
 
