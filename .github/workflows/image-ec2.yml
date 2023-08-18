@@ -2,29 +2,24 @@ name: Deploy Docker Image to EC2
 
 on:
   push:
-    branches:  [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: Deploy to EC2
         run: |
-          echo "Setting up SSH..."
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H $EC2_INSTANCE_IP >> ~/.ssh/known_hosts
-
           echo "Pulling Docker Image..."
-          ssh -i ~/.ssh/id_rsa ec2-user@$EC2_INSTANCE_IP "docker pull ailchishin/practice:tagname"
+          ssh -i ~/.ssh/id_rsa ec2-user@52.23.179.202 "docker pull ailchishin/practice:tagname"
 
           echo "Running Docker Container..."
-          ssh -i ~/.ssh/id_rsa ec2-user@$EC2_INSTANCE_IP "docker run -d -p 8080:8080 --name container-name ailchishin/practice:tagname"
+          ssh -i ~/.ssh/id_rsa ec2-user@52.23.179.202 "docker run -d -p 8080:8080 --name container-name ailchishin/practice:tagname"
+
+
+  
+       
+
 
